@@ -25,18 +25,18 @@ if (!require(ggplot2, quietly = TRUE)) {
 
 # ====    2 Dataset exploration  ===============================================
 
-my_data <- iris
+iris_data <- iris
 
 # Let's explore the dataset
-str(my_data)
+str(iris_data)
 
-summary(my_data$Petal.Length)
+summary(iris_data$Petal.Length)
 
 # Let's explore the distribution of petal length across the different species
 
 qplot(
     Petal.Length,
-    data = my_data,
+    data = iris_data,
     geom = 'density',
     color = Species,
     fill = Species
@@ -46,20 +46,20 @@ qplot(
 
 # Can we exctract the different species into clusters using petal lenght?
 
-my_data2<-my_data[,"Petal.Length"]
+iris_data2<-iris_data[,"Petal.Length"]
 
 num_cluster<-3
 
 set.seed(12345)
 
-result<-kmeans(my_data2,num_cluster,nstart = 20)
+result<-kmeans(iris_data2,num_cluster,nstart = 20)
 # Let's see how the original species have been assigned into clusters
 
-table(result$cluster,my_data$Species)
+table(result$cluster,iris_data$Species)
 
 # Let's plot sepal lenght per cluster
 qplot(Petal.Length,
-      data = my_data,
+      data = iris_data,
       fill=factor(result$cluster),)
 
 
@@ -67,21 +67,21 @@ qplot(Petal.Length,
 
 # Can we exctract the different species into clusters using 2 attributes?
 
-my_data2<-my_data[,c("Petal.Length","Petal.Width")]
+iris_data2<-iris_data[,c("Petal.Length","Petal.Width")]
 
 num_cluster<-3
 
 set.seed(12345)
 
-result<-kmeans(my_data2,num_cluster,nstart = 20)
+result<-kmeans(iris_data2,num_cluster,nstart = 20)
 # Let's see how the original species have been assigned into clusters
 
-table(result$cluster,my_data$Species)
+table(result$cluster,iris_data$Species)
 
 # Let's plot sepal lenght per cluster
 qplot(Petal.Length,Petal.Width,
-      data = my_data,
-      fill=factor(result$cluster),)
+      data = iris_data,
+      col=factor(result$cluster),)
 
 
 # Let's plot sepal lenght and petal width per cluster
